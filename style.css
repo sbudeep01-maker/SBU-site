@@ -1,15 +1,58 @@
 body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
   background: #0f172a;
-  color: white;
-  font-family: Arial;
+  color: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
   text-align: center;
-  padding-top: 50px;
+  max-width: 500px;
+  padding: 20px;
+}
+
+h1 {
+  margin-bottom: 30px;
+}
+
+.quote-card {
+  background: #1e293b;
+  padding: 30px;
+  border-radius: 16px;
+  margin-bottom: 20px;
+}
+
+#quote {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+#author {
+  color: #94a3b8;
+  font-size: 0.9rem;
 }
 
 button {
-  padding: 10px 20px;
+  background: #38bdf8;
+  color: #0f172a;
   border: none;
-  border-radius: 8px;
+  padding: 12px 25px;
+  border-radius: 25px;
   cursor: pointer;
+  font-weight: 600;
 }
 
+button:hover {
+  opacity: 0.9;
+}
+
+footer {
+  margin-top: 40px;
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
