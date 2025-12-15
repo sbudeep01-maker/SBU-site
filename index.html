@@ -1,40 +1,41 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>SBU AI Dashboard</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>SBU — Calm Power</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<h1>SBU AI Dashboard 🤖</h1>
 
-<div class="card">
-  <h2>Mood Checker</h2>
-  <select id="mood">
-    <option value="happy">😊 Happy</option>
-    <option value="sad">😔 Sad</option>
-    <option value="angry">😡 Angry</option>
-    <option value="focused">🎯 Focused</option>
-  </select>
-  <button onclick="getMoodAdvice()">Get Advice</button>
-  <p id="moodResult"></p>
-</div>
+<div id="cursor-glow"></div>
 
-<div class="card">
-  <h2>Daily Planner</h2>
-  <input id="taskInput" placeholder="Enter task">
-  <button onclick="addTask()">Add</button>
-  <ul id="tasks"></ul>
-</div>
+<section class="panel hero">
+  <h1>Stillness is power.</h1>
+  <p>Scroll when ready.</p>
+</section>
 
-<div class="card">
-  <h2>Journal</h2>
-  <textarea id="journal" placeholder="Write your thoughts..."></textarea>
-  <button onclick="saveJournal()">Save</button>
-</div>
+<section class="panel awareness">
+  <p id="behaviorText"></p>
+</section>
 
-<footer>Built by Sbu 💻</footer>
+<section class="panel memory">
+  <p id="memoryText"></p>
+</section>
+
+<section class="panel guide">
+  <p id="guideText"></p>
+</section>
+
+<section class="panel hidden" id="hidden">
+  <p>You noticed more than most.</p>
+</section>
+
+<section class="panel end">
+  <h2>This wasn’t a website.</h2>
+  <p>It adapted to you.</p>
+  <span>Built by Sbu.</span>
+</section>
 
 <script src="script.js"></script>
 </body>
