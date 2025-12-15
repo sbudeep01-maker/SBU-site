@@ -1,31 +1,41 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Quote of the Day</title>
-
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>SBU AI Dashboard</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
+<h1>SBU AI Dashboard 🤖</h1>
 
-  <div class="container">
-    <h1>Quote of the Day</h1>
+<div class="card">
+  <h2>Mood Checker</h2>
+  <select id="mood">
+    <option value="happy">😊 Happy</option>
+    <option value="sad">😔 Sad</option>
+    <option value="angry">😡 Angry</option>
+    <option value="focused">🎯 Focused</option>
+  </select>
+  <button onclick="getMoodAdvice()">Get Advice</button>
+  <p id="moodResult"></p>
+</div>
 
-    <div class="quote-card">
-      <p id="quote">“Believe you can and you're halfway there.”</p>
-      <span id="author">— Theodore Roosevelt</span>
-    </div>
+<div class="card">
+  <h2>Daily Planner</h2>
+  <input id="taskInput" placeholder="Enter task">
+  <button onclick="addTask()">Add</button>
+  <ul id="tasks"></ul>
+</div>
 
-    <button onclick="newQuote()">New Quote</button>
-  </div>
+<div class="card">
+  <h2>Journal</h2>
+  <textarea id="journal" placeholder="Write your thoughts..."></textarea>
+  <button onclick="saveJournal()">Save</button>
+</div>
 
-  <footer>
-    Built by Sbu 💻
-  </footer>
+<footer>Built by Sbu 💻</footer>
 
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
