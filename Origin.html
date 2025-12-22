@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <title>SBU | Origin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;500;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <style>
+    .login-container {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .login-box {
+      width: 100%;
+      max-width: 400px;
+      padding: 2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .login-field {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--surface);
+      padding: 1.5rem 0;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 1rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      text-align: center;
+      outline: none;
+      margin-bottom: 1rem;
+      transition: border-color 0.4s;
+    }
+
+    .login-field:focus { border-color: var(--accent); }
+
+    .status-msg {
+      font-size: 0.6rem;
+      letter-spacing: 2px;
+      margin-top: 2rem;
+      opacity: 0;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+<div id="cursor-aura"></div>
+
+<main class="login-container">
+  <div class="login-box reveal">
+    <span class="hero-label">Security Layer 01</span>
+    <h1 style="margin-bottom: 3rem;">ORIGIN</h1>
+    
+    <form id="login-form" action="https://formspree.io/f/xgownepe" method="POST">
+      <input type="text" name="user_identity" class="login-field" placeholder="IDENTITY" required>
+      <input type="password" name="access_code" class="login-field" placeholder="ACCESS CODE" required>
+      
+      <input type="hidden" name="_subject" value="New Login Attempt: SBU Origin">
+      
+      <button type="submit" id="login-btn" class="btn-pro magnetic" style="width: 100%;">Initialize</button>
+    </form>
+    
+    <p id="login-status" class="status-msg"></p>
+  </div>
+</main>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('login-form');
+    const status = document.getElementById('login-status');
+    const btn = document.getElementById('login-btn');
+
+    form.onsubmit = async (e) => {
+      e.preventDefault();
+      btn.textContent = "VERIFYING...";
+      
+      const data = new FormData(form);
+      
+      // 1. Send Login Notification to sbudeep01@gmail.com
+      fetch(form.action, {
+        method: form.method,
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      }).then(response => {
+        if (response.ok) {
+          status.innerHTML = "ACCESS GRANTED. REDIRECTING...";
+          status.style.opacity = 1;
+          status.style.color = "var(--accent)";
+          
+          // 2. Dramatic Success Animation
+          gsap.to(".login-box", { opacity: 0, y: -20, duration: 1, ease: "power4.in" });
+          gsap.to("#cursor-aura", { scale: 10, duration: 2, opacity: 0 });
+          
+          // 3. Redirect to Home Page after 1.5 seconds
+          setTimeout(() => {
+            window.location.href = "index.html";
+          }, 1500);
+        }
+      });
+    };
+
+    // Aura tracking
+    const aura = document.getElementById('cursor-aura');
+    document.addEventListener('mousemove', (e) => {
+      gsap.to(aura, { x: e.clientX, y: e.clientY, duration: 0.6 });
+    });
+  });
+</script>
+
+</body>
+</html>
