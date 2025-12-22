@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <title>SBU | Connection</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;500;800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <style>
+    :root {
+      --bg: #080808;
+      --surface: rgba(255, 255, 255, 0.05);
+      --text: #ffffff;
+      --accent: #00f2ff;
+      --aura-opacity: 0.15;
+    }
+
+    [data-theme="light"] {
+      --bg: #f5f5f7;
+      --surface: rgba(0, 0, 0, 0.05);
+      --text: #1d1d1f;
+      --accent: #0071e3;
+      --aura-opacity: 0.1;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: background-color 0.8s ease;
+      overflow: hidden; /* Kept clean for contact */
+    }
+
+    #cursor-aura {
+      position: fixed;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+      opacity: var(--aura-opacity);
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(80px);
+      transform: translate(-50%, -50%);
+      transition: opacity 0.5s ease, transform 0.2s ease-out;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0; width: 100%;
+      padding: 1.5rem 5vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--surface);
+    }
+
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-item {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: 0.6;
+    }
+
+    /* Contact Form Layout */
+    .contact-container {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 0 10vw;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5vw;
+    }
+
+    .info-side h1 {
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      line-height: 0.9;
+      margin-bottom: 2rem;
+    }
+
+    .form-side {
+      position: relative;
+      z-index: 2;
+    }
+
+    .form-group {
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    label {
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      opacity: 0.4;
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    input, textarea {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--surface);
+      padding: 1rem 0;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 1.2rem;
+      outline: none;
+      transition: border-color 0.4s ease;
+    }
+
+    input:focus, textarea:focus {
+      border-color: var(--accent);
+    }
+
+    /* Input Field Glow effect */
+    .form-group:hover .input-glow {
+      opacity: 1;
+    }
+
+    .btn-send {
+      background: var(--text);
+      color: var(--bg);
+      border: none;
+      padding: 1.5rem 4rem;
+      font-weight: 800;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      margin-top: 2rem;
+      transition: transform 0.3s;
+    }
+  </style>
+</head>
+<body>
+
+<div id="cursor-aura"></div>
+
+<nav>
+  <div class="logo" style="font-weight: 800; letter-spacing: 4px;">SBU.</div>
+  <div class="nav-links">
+    <a href="index.html" class="nav-item">Home</a>
+    <a href="about.html" class="nav-item">About</a>
+    <a href="#" class="nav-item" style="opacity: 1; color: var(--accent);">Contact</a>
+  </div>
+</nav>
+
+<main class="contact-container">
+  <div class="info-side">
+    <h1 class="reveal">Initiate<br/><span style="font-weight: 200; font-style: italic;">Frequency.</span></h1>
+    <p style="opacity: 0.5; font-weight: 200;">Our studio operates on specific intervals. Reach out to enter the queue.</p>
+  </div>
+
+  <div class="form-side reveal">
+    <form id="pro-form" action="https://formspree.io/f/your_unique_id" method="POST">
+  
+      <div class="form-group" onmouseenter="focusAura(true)" onmouseleave="focusAura(false)">
+        <label>Identity</label>
+        <input type="text" name="name" placeholder="Your name" autocomplete="off" required>
+      </div>
+
+      <div class="form-group" onmouseenter="focusAura(true)" onmouseleave="focusAura(false)">
+        <label>Endpoint</label>
+        <input type="email" name="email" placeholder="Your email" autocomplete="off" required>
+      </div>
+
+      <div class="form-group" onmouseenter="focusAura(true)" onmouseleave="focusAura(false)">
+        <label>Inquiry</label>
+        <textarea name="message" rows="3" placeholder="Define your intent" required></textarea>
+      </div>
+
+      <input type="hidden" name="_to" value="sbudeep01@gmail.com">
+
+      <button type="submit" id="submit-btn" class="btn-send magnetic">Transmit</button>
+  
+      <p id="form-status" style="margin-top: 20px; font-size: 0.7rem; letter-spacing: 2px; opacity: 0;"></p>
+    </form>
+  </div>
+</main>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    // 1. Theme Sync
+    const savedTheme = localStorage.getItem('sbu-theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+
+    // 2. Aura Tracking
+    const aura = document.getElementById('cursor-aura');
+    let mouseX = 0, mouseY = 0;
+    
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    gsap.ticker.add(() => {
+      gsap.to(aura, { x: mouseX, y: mouseY, duration: 0.6 });
+    });
+
+    // 3. Interactive Focus Glow
+    window.focusAura = (isFocused) => {
+      gsap.to(aura, {
+        scale: isFocused ? 1.8 : 1,
+        opacity: isFocused ? 0.3 : 0.15,
+        duration: 0.5
+      });
+    };
+
+    // 4. Magnetic Button
+    const btn = document.querySelector('.magnetic');
+    btn.addEventListener('mousemove', (e) => {
+      const { left, top, width, height } = btn.getBoundingClientRect();
+      const x = (e.clientX - left - width / 2) / 10;
+      const y = (e.clientY - top - height / 2) / 10;
+      gsap.to(btn, { x: x, y: y, duration: 0.3 });
+    });
+    btn.addEventListener('mouseleave', () => {
+      gsap.to(btn, { x: 0, y: 0, duration: 0.5 });
+    });
+
+    // 5. Entrance Animation
+    gsap.from(".reveal", {
+      opacity: 0,
+      y: 30,
+      duration: 1,
+      stagger: 0.2,
+      ease: "power3.out"
+    });
+  });
+</script>
+
+</body>
+</html>
