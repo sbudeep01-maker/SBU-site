@@ -1,41 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
-  <title>SBU — Calm Power</title>
+  <title>SBU | Ultra Pro Vision</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;800&family=Bormioli:wght@100&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
 <body>
 
-<div id="cursor-glow"></div>
+<div id="loader">
+  <div class="loader-content">
+    <span class="count">0</span>%
+  </div>
+</div>
 
-<section class="panel hero">
-  <h1>Stillness is power.</h1>
-  <p>Scroll when ready.</p>
-</section>
+<div id="cursor-aura"></div>
 
-<section class="panel awareness">
-  <p id="behaviorText"></p>
-</section>
+<nav class="ultra-nav">
+  <div class="magnetic-wrap"><div class="logo">SBU.PRO</div></div>
+  <div class="controls">
+    <div class="status-indicator">
+      <span class="pulse"></span>
+      <span class="status-text">Synchronized</span>
+    </div>
+    <div class="magnetic-wrap">
+      <button id="theme-toggle" class="magnetic">Toggle Spectrum</button>
+    </div>
+  </div>
+</nav>
 
-<section class="panel memory">
-  <p id="memoryText"></p>
-</section>
+<div id="smooth-wrapper">
+  <main id="smooth-content">
+    <section class="panel hero">
+      <div class="content">
+        <h1 class="split-text" data-animation="reveal">Architecting <br/>Silence</h1>
+        <p class="reveal-up">A multisensory interface designed to measure the weight of your intent.</p>
+      </div>
+    </section>
 
-<section class="panel guide">
-  <p id="guideText"></p>
-</section>
+    <section class="panel cards">
+      <div class="card-grid">
+        <div class="parallax-card">
+          <div class="card-inner">
+            <span class="label">01</span>
+            <h3>Neural Velocity</h3>
+            <p id="velocity-val">0.00</p>
+          </div>
+        </div>
+        <div class="parallax-card">
+          <div class="card-inner">
+            <span class="label">02</span>
+            <h3>Session Depth</h3>
+            <p id="scroll-val">0%</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<section class="panel hidden" id="hidden">
-  <p>You noticed more than most.</p>
-</section>
-
-<section class="panel end">
-  <h2>This wasn’t a website.</h2>
-  <p>It adapted to you.</p>
-  <span>Built by Sbu.</span>
-</section>
+    <section class="panel signature-end">
+      <h2 class="split-text" data-animation="fade">Experience Refined.</h2>
+    </section>
+  </main>
+</div>
 
 <script src="script.js"></script>
 </body>
