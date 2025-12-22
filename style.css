@@ -1,82 +1,40 @@
-:root {
-  --bg: #030303;
-  --text: #ffffff;
-  --accent: #00f2ff;
-  --card-bg: rgba(255, 255, 255, 0.03);
+/* Kinetic Typography Masking */
+.reveal-container {
+  overflow: hidden;
+  height: auto;
+  margin-bottom: -1vw;
 }
 
-[data-theme="light"] {
-  --bg: #ffffff;
-  --text: #080808;
-  --accent: #0051ff;
-  --card-bg: rgba(0, 0, 0, 0.03);
+.kinetic-text {
+  display: block;
+  transform: translateY(100%);
+  will-change: transform;
 }
 
-/* Preloader */
-#loader {
-  position: fixed;
-  inset: 0;
-  background: #000;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-family: 'Bormioli', serif;
+/* Magnetic Stat Cards */
+.stat-card {
+  background: var(--surface);
+  backdrop-filter: blur(40px);
+  padding: 3rem;
+  border-radius: 2px; /* Brutalist edge */
+  border-left: 1px solid var(--accent);
+  transition: background 0.4s ease;
+}
+
+.number-wrap {
   font-size: 5rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
 }
 
-/* Smooth Scroll Layout */
-#smooth-wrapper { overflow: hidden; width: 100%; height: 100%; }
-
-.ultra-nav {
-  position: fixed;
-  top: 0; width: 100%;
-  padding: 2rem 5vw;
-  display: flex;
-  justify-content: space-between;
-  z-index: 1000;
-}
-
-/* Card Parallax Effect */
-.card-grid {
-  display: flex;
-  gap: 2rem;
+/* Section Transitions */
+.panel {
   perspective: 1000px;
 }
 
-.parallax-card {
-  flex: 1;
-  background: var(--card-bg);
-  padding: 4rem 2rem;
-  border-radius: 2px;
-  border: 1px solid rgba(255,255,255,0.1);
-  transition: border 0.5s ease;
-  transform-style: preserve-3d;
-}
-
-.parallax-card:hover {
-  border-color: var(--accent);
-}
-
-.label {
-  display: block;
-  font-size: 0.7rem;
-  letter-spacing: 4px;
-  margin-bottom: 2rem;
-  opacity: 0.5;
-}
-
-/* Character Animation Styles */
-.char {
-  display: inline-block;
-  transform: translateY(100%);
-  opacity: 0;
-}
-
-.magnetic-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
+/* Scroll Indicator Upgrade */
+#scroll-progress {
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  mix-blend-mode: difference;
 }

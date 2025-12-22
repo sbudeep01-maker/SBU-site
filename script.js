@@ -1,93 +1,73 @@
 /* =========================
-   SMOOTH CURSOR (LERP)
+   CINEMATIC ENTRANCE
 ========================= */
-const glow = document.getElementById("cursor-glow");
-let mouseX = 0, mouseY = 0;
-let ballX = 0, ballY = 0;
-const speed = 0.08; // Adjust for "weight"
+const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
 
-document.addEventListener("mousemove", e => {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
-});
-
-function animateCursor() {
-  let distX = mouseX - ballX;
-  let distY = mouseY - ballY;
-  
-  ballX += distX * speed;
-  ballY += distY * speed;
-  
-  glow.style.left = ballX + "px";
-  glow.style.top = ballY + "px";
-  
-  requestAnimationFrame(animateCursor);
-}
-animateCursor();
+tl.to(".kinetic-text", {
+  y: 0,
+  duration: 1.8,
+  stagger: 0.1,
+  delay: 0.5
+})
+.from(".fade-up", {
+  opacity: 0,
+  y: 20,
+  duration: 1
+}, "-=1");
 
 /* =========================
-   SCROLL PSYCHOLOGY + PROGRESS
+   MAGNETIC INTERACTION
 ========================= */
-let lastScroll = window.scrollY;
-let slowMoments = 0;
-let fastMoments = 0;
-const progressBar = document.getElementById("scroll-progress");
+const magneticEls = document.querySelectorAll('.magnetic');
 
-window.addEventListener("scroll", () => {
-  // Update Progress Bar
-  const h = document.documentElement;
-  const st = h.scrollTop || document.body.scrollTop;
-  const sh = h.scrollHeight || document.body.scrollHeight;
-  const percent = (st / (sh - h.clientHeight)) * 100;
-  progressBar.style.width = percent + "%";
-
-  // Behavior Logic
-  const now = window.scrollY;
-  const delta = Math.abs(now - lastScroll);
-  if (delta > 0 && delta < 5) slowMoments++;
-  if (delta > 40) fastMoments++;
-  lastScroll = now;
+magneticEls.forEach(el => {
+  el.addEventListener('mousemove', (e) => {
+    const { clientX: x, clientY: y } = e;
+    const { left, top, width, height } = el.getBoundingClientRect();
+    const strength = el.dataset.strength || 30;
+    
+    const xPos = (x - left - width / 2) / strength;
+    const yPos = (y - top - height / 2) / strength;
+    
+    gsap.to(el, { x: xPos, y: yPos, duration: 0.6 });
+  });
+  
+  el.addEventListener('mouseleave', () => {
+    gsap.to(el, { x: 0, y: 0, duration: 0.6, ease: "elastic.out(1, 0.3)" });
+  });
 });
 
 /* =========================
-   REVEAL ON SCROLL
+   PRO COUNTER ENGINE
 ========================= */
-const observerOptions = { threshold: 0.3 };
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('active');
+function animateValue(id, start, end, duration) {
+  const obj = { val: start };
+  gsap.to(obj, {
+    val: end,
+    duration: duration,
+    ease: "power3.inOut",
+    onUpdate: () => {
+      document.getElementById(id).textContent = Math.ceil(obj.val).toString().padStart(2, '0');
     }
   });
-}, observerOptions);
+}
 
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-/* =========================
-   BEHAVIOR ANALYSIS
-========================= */
-const behaviorText = document.getElementById("behaviorText");
-const guideText = document.getElementById("guideText");
-const hiddenSection = document.getElementById("hidden");
-
-setTimeout(() => {
-  if (slowMoments > fastMoments) {
-    behaviorText.textContent = "You move with intention.";
-    guideText.textContent = "Your patience unlocked a hidden layer below.";
-    hiddenSection.classList.add("show");
-  } else {
-    behaviorText.textContent = "You move with urgency.";
-    guideText.textContent = "The deepest secrets are only visible to those who linger.";
+// Trigger count on scroll
+ScrollTrigger.create({
+  trigger: ".analytics",
+  onEnter: () => {
+    animateValue("live-pulse", 0, 88, 2); // Simulated pulse
+    animateValue("live-visit", 0, localStorage.getItem("visits") || 1, 1.5); // From your original memory logic
   }
-}, 5000);
+});
 
 /* =========================
-   MEMORY
+   AURA BREATHING
 ========================= */
-const visits = Number(localStorage.getItem("visits") || 0) + 1;
-localStorage.setItem("visits", visits);
-
-const memoryText = document.getElementById("memoryText");
-memoryText.textContent = visits > 1 
-  ? `Welcome back. You've been here ${visits} times. The energy remains.`
-  : "This is your first encounter. Tread lightly.";
+gsap.to("#cursor-aura", {
+  scale: 1.2,
+  duration: 4,
+  repeat: -1,
+  yoyo: true,
+  ease: "sine.inOut"
+});

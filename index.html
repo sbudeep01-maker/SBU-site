@@ -2,71 +2,232 @@
 <html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
-  <title>SBU | Ultra Pro Vision</title>
+  <title>SBU | Multi-Page Pro</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;800&family=Bormioli:wght@100&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script> 
+  
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;500;800&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <style>
+    :root {
+      --bg: #080808;
+      --surface: rgba(255, 255, 255, 0.05);
+      --text: #ffffff;
+      --accent: #00f2ff;
+      --aura-opacity: 0.15;
+    }
+
+    [data-theme="light"] {
+      --bg: #f5f5f7;
+      --surface: rgba(0, 0, 0, 0.05);
+      --text: #1d1d1f;
+      --accent: #0071e3;
+      --aura-opacity: 0.1;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: background-color 0.8s ease;
+      overflow-x: hidden;
+    }
+
+    /* Aura Background */
+    #cursor-aura {
+      position: fixed;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+      opacity: var(--aura-opacity);
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(60px);
+      transform: translate(-50%, -50%);
+    }
+
+    /* --- NAVIGATION BAR --- */
+    nav {
+      position: fixed;
+      top: 0; width: 100%;
+      padding: 1.5rem 5vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--surface);
+    }
+
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+
+    /* The Navigation Button Style */
+    .nav-item {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: 0.6;
+      transition: opacity 0.3s;
+    }
+
+    .nav-item:hover { opacity: 1; }
+
+    /* The CTA Button Style */
+    .btn-pro {
+      display: inline-block;
+      padding: 1.2rem 2.5rem;
+      border: 1px solid var(--text);
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 0.8rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-top: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: color 0.4s ease;
+    }
+
+    .btn-pro:hover { color: var(--bg); }
+
+    .btn-pro::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: var(--text);
+      z-index: -1;
+      transition: left 0.4s cubic-bezier(0.7, 0, 0.3, 1);
+    }
+
+    .btn-pro:hover::before { left: 0; }
+
+    .theme-btn {
+      background: var(--text);
+      color: var(--bg);
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-weight: 800;
+      font-size: 9px;
+      text-transform: uppercase;
+    }
+
+    .panel {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 10vw;
+      position: relative;
+    }
+
+    h1 { font-size: clamp(3rem, 10vw, 8rem); line-height: 0.9; }
+
+  </style>
 </head>
 <body>
 
-<div id="loader">
-  <div class="loader-content">
-    <span class="count">0</span>%
-  </div>
-</div>
-
 <div id="cursor-aura"></div>
 
-<nav class="ultra-nav">
-  <div class="magnetic-wrap"><div class="logo">SBU.PRO</div></div>
-  <div class="controls">
-    <div class="status-indicator">
-      <span class="pulse"></span>
-      <span class="status-text">Synchronized</span>
-    </div>
-    <div class="magnetic-wrap">
-      <button id="theme-toggle" class="magnetic">Toggle Spectrum</button>
-    </div>
+<nav>
+  <div class="logo" style="font-weight: 800; letter-spacing: 4px;">SBU.</div>
+  
+  <div class="nav-links">
+    <a href="#" class="nav-item magnetic" data-strength="10">Origin</a>
+    <a href="#" class="nav-item magnetic" data-strength="10">Insights</a>
+    <a href="#" class="nav-item magnetic" data-strength="10">Vault</a>
+    <button id="theme-toggle" class="theme-btn">Switch Mode</button>
   </div>
 </nav>
 
-<div id="smooth-wrapper">
-  <main id="smooth-content">
-    <section class="panel hero">
-      <div class="content">
-        <h1 class="split-text" data-animation="reveal">Architecting <br/>Silence</h1>
-        <p class="reveal-up">A multisensory interface designed to measure the weight of your intent.</p>
-      </div>
-    </section>
+<main>
+  <section class="panel">
+    <div class="reveal-box">
+      <h1 class="reveal">Architecting<br/><span style="font-weight: 200; font-style: italic;">The Silence.</span></h1>
+      <a href="about.html" class="btn-pro magnetic" data-strength="20">Enter The Core</a>
+    </div>
+  </section>
 
-    <section class="panel cards">
-      <div class="card-grid">
-        <div class="parallax-card">
-          <div class="card-inner">
-            <span class="label">01</span>
-            <h3>Neural Velocity</h3>
-            <p id="velocity-val">0.00</p>
-          </div>
-        </div>
-        <div class="parallax-card">
-          <div class="card-inner">
-            <span class="label">02</span>
-            <h3>Session Depth</h3>
-            <p id="scroll-val">0%</p>
-          </div>
-        </div>
-      </div>
-    </section>
+  <section class="panel" style="border-top: 1px solid var(--surface);">
+    <h2 class="reveal">The Philosophy</h2>
+    <p style="max-width: 600px; opacity: 0.6; margin: 2rem 0;">Every click is a choice. Every movement is data. We build for those who value the space between pixels.</p>
+    <a href="contact.html" class="btn-pro magnetic" data-strength="20">Connect With Us</a>
+  </section>
+</main>
 
-    <section class="panel signature-end">
-      <h2 class="split-text" data-animation="fade">Experience Refined.</h2>
-    </section>
-  </main>
-</div>
+<script>
+  gsap.registerPlugin(ScrollTrigger);
 
-<script src="script.js"></script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const aura = document.getElementById('cursor-aura');
+
+    // 1. MAGNETIC EFFECT FOR ALL BUTTONS
+    const magnets = document.querySelectorAll('.magnetic');
+    
+    magnets.forEach(m => {
+      m.addEventListener('mousemove', (e) => {
+        const { left, top, width, height } = m.getBoundingClientRect();
+        const strength = m.dataset.strength || 20;
+        const x = (e.clientX - left - width / 2) / strength;
+        const y = (e.clientY - top - height / 2) / strength;
+        gsap.to(m, { x: x, y: y, duration: 0.4 });
+      });
+
+      m.addEventListener('mouseleave', () => {
+        gsap.to(m, { x: 0, y: 0, duration: 0.6, ease: "elastic.out(1, 0.3)" });
+      });
+    });
+
+    // 2. CURSOR AURA TRACKING
+    let mouseX = 0, mouseY = 0;
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    gsap.ticker.add(() => {
+      gsap.set(aura, { x: mouseX, y: mouseY });
+    });
+
+    // 3. THEME TOGGLE LOGIC
+    const toggle = document.getElementById('theme-toggle');
+    toggle.addEventListener('click', () => {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    });
+
+    // 4. TEXT ENTRANCE ANIMATIONS
+    gsap.from(".reveal", {
+      y: 100,
+      opacity: 0,
+      duration: 1.5,
+      stagger: 0.2,
+      ease: "expo.out",
+      scrollTrigger: {
+        trigger: ".reveal",
+        start: "top 90%"
+      }
+    });
+
+    gsap.from(".btn-pro", {
+      opacity: 0,
+      y: 20,
+      duration: 1,
+      delay: 0.8,
+      scrollTrigger: {
+        trigger: ".btn-pro",
+        start: "top 95%"
+      }
+    });
+  });
+</script>
+
 </body>
 </html>
